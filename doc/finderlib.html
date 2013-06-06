@@ -1,0 +1,678 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>光速搜索开发接口 Finder Development Interface</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+body{
+    margin: 0 auto;
+    font-family: "Microsoft YaHei","SimSun", Tahoma,Helvetica,sans-serif;
+    color: #444444;
+    line-height: 1;
+    padding: 5px;
+}
+h1, h2, h3, h4 {
+    color: #111111;
+    font-weight: 400;
+}
+h1, h2, h3, h4, h5, p {
+    margin-bottom: 16px;
+    padding: 0;
+}
+h1 {
+    font-size: 28px;
+}
+h2 {
+    font-size: 22px;
+    margin: 20px 0 6px;
+}
+h3 {
+    font-size: 21px;
+}
+h4 {
+    font-size: 18px;
+}
+h5 {
+    font-size: 16px;
+}
+a {
+    color: #0099ff;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+a:hover {
+    text-decoration: none;
+    color: #ff6600;
+}
+a:visited {
+    color: purple;
+}
+ul, ol {
+    padding: 0;
+    margin: 0;
+}
+li {
+    line-height: 24px;
+    margin-left: 44px;
+}
+li ul, li ul {
+    margin-left: 24px;
+}
+p, ul, ol {
+    font-size: 14px;
+    line-height: 1.2em;
+    
+}
+pre {
+    padding: 0px 24px;
+    
+    white-space: pre-wrap;
+}
+code {
+    font-family: Consolas, Monaco, Andale Mono, monospace;
+    line-height: 1.5;
+    font-size: 13px;
+}
+aside {
+    display: block;
+    float: right;
+    width: 390px;
+}
+blockquote {
+    border-left:.5em solid #eee;
+    padding: 0 2em;
+    margin-left:0;
+    max-width: 476px;
+}
+blockquote  cite {
+    font-size:14px;
+    line-height:20px;
+    color:#bfbfbf;
+}
+blockquote cite:before {
+    content: '\2014 \00A0';
+}
+
+blockquote p {  
+    color: #666;
+    max-width: 460px;
+}
+hr {
+    width: 540px;
+    text-align: left;
+    margin: 0 auto 0 0;
+    color: #999;
+}
+
+button,
+input,
+select,
+textarea {
+  font-size: 100%;
+  margin: 0;
+  vertical-align: baseline;
+  *vertical-align: middle;
+}
+button, input {
+  line-height: normal;
+  *overflow: visible;
+}
+button::-moz-focus-inner, input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+input[type=checkbox], input[type=radio] {
+  cursor: pointer;
+}
+/* override default chrome & firefox settings */
+input:not([type="image"]), textarea {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+label,
+input,
+select,
+textarea {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: normal;
+  margin-bottom: 18px;
+}
+input[type=checkbox], input[type=radio] {
+  cursor: pointer;
+  margin-bottom: 0;
+}
+input[type=text],
+input[type=password],
+textarea,
+select {
+  display: inline-block;
+  width: 210px;
+  padding: 4px;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  height: 18px;
+  color: #808080;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+select, input[type=file] {
+  height: 27px;
+  line-height: 27px;
+}
+textarea {
+  height: auto;
+}
+
+/* grey out placeholders */
+:-moz-placeholder {
+  color: #bfbfbf;
+}
+::-webkit-input-placeholder {
+  color: #bfbfbf;
+}
+
+input[type=text],
+input[type=password],
+select,
+textarea {
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+input[type=text]:focus, input[type=password]:focus, textarea:focus {
+  outline: none;
+  border-color: rgba(82, 168, 236, 0.8);
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+/* buttons */
+button {
+  display: inline-block;
+  padding: 4px 14px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  background-color: #0064cd;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#049cdb), to(#0064cd));
+  background-image: -moz-linear-gradient(top, #049cdb, #0064cd);
+  background-image: -ms-linear-gradient(top, #049cdb, #0064cd);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #049cdb), color-stop(100%, #0064cd));
+  background-image: -webkit-linear-gradient(top, #049cdb, #0064cd);
+  background-image: -o-linear-gradient(top, #049cdb, #0064cd);
+  background-image: linear-gradient(top, #049cdb, #0064cd);
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border: 1px solid #004b9a;
+  border-bottom-color: #003f81;
+  -webkit-transition: 0.1s linear all;
+  -moz-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+  border-color: #0064cd #0064cd #003f81;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+button:hover {
+  color: #fff;
+  background-position: 0 -15px;
+  text-decoration: none;
+}
+button:active {
+  -webkit-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+/* CSS stylesheet is based on Kevin Burke's Markdown.css project (http://kevinburke.bitbucket.org/markdowncss) */
+</style>
+</head>
+<body>
+<h1>光速搜索开发接口 Finder Development Interface</h1>
+
+<h2>摘要:</h2>
+
+<p>本文档描述了finderlib.dll提供的开发接口，可用函数，参数的描述，以及一些使用案例。</p>
+
+<h2>函数列表</h2>
+
+<ul>
+<li><a href="#finder">FindA / FindW</a></li>
+<li><a href="#launchfinder">LaunchFinder</a></li>
+<li><a href="#isfinderrunning">IsFinderRunning</a></li>
+<li><a href="#checkrequirement">CheckRequirement</a></li>
+</ul>
+
+<p><a id="finder"></a></p>
+
+<h1>Find</h1>
+
+<h2>回调函数：</h2>
+
+<p>由调用方传入，搜索有结果返回时会被调用
+<pre style='color:#000000;background:#f1f0f0;'>TResultCallBack <span style='color:#806030; '>=</span> <span style='color:#400000; font-weight:bold; '>procedure</span><span style='color:#806030; '>(</span>Buffer<span style='color:#806030; '>:</span> PPChar<span style='color:#806030; '>;</span> BufferCount<span style='color:#806030; '>:</span> <span style='color:#800040; '>Integer</span><span style='color:#806030; '>;</span> TotalCount<span style='color:#806030; '>:</span> <span style='color:#800040; '>Integer</span><span style='color:#806030; '>;</span>
+    ErrorCode<span style='color:#806030; '>:</span> <span style='color:#800040; '>Integer</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span> <span style='color:#400000; font-weight:bold; '>stdcall</span><span style='color:#806030; '>;</span>
+</pre>
+	
+	</p>
+
+<p>Buffer: PPChar;                 包含每个文件名的数组</p>
+
+<p>BufferCount: Integer；           此次返回的(Buffer)文件名个数</p>
+
+<p>TotalCount: Integer;            搜索结果总数</p>
+
+<p>ErrorCode: Integer              错误代码 （0=无错，&lt;> 0 有错）</p>
+
+<h2>搜索文件函数</h2>
+
+<pre style='color:#000000;background:#f1f0f0;'><span style='color:#400000; font-weight:bold; '>function</span> FindA<span style='color:#806030; '>(</span><span style='color:#400000; font-weight:bold; '>const</span> AStr<span style='color:#806030; '>:</span> <span style='color:#800040; '>PAnsiChar</span><span style='color:#806030; '>;</span> <span style='color:#400000; font-weight:bold; '>const</span> ACallback<span style='color:#806030; '>:</span> TResultCallBack<span style='color:#806030; '>;</span>
+  <span style='color:#400000; font-weight:bold; '>const</span> ADir<span style='color:#806030; '>,</span> AFilter<span style='color:#806030; '>:</span> <span style='color:#800040; '>PAnsiChar</span><span style='color:#806030; '>;</span> <span style='color:#400000; font-weight:bold; '>const</span> Afrom<span style='color:#806030; '>:</span> <span style='color:#800040; '>Integer</span> <span style='color:#806030; '>=</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>;</span>
+  <span style='color:#400000; font-weight:bold; '>const</span> ACount<span style='color:#806030; '>:</span> <span style='color:#800040; '>Integer</span> <span style='color:#806030; '>=</span> <span style='color:#c00000; '>100</span><span style='color:#806030; '>;</span> <span style='color:#400000; font-weight:bold; '>const</span> ASpaceOr<span style='color:#806030; '>:</span> <span style='color:#800040; '>Boolean</span> <span style='color:#806030; '>=</span> <span style='color:#007d45; '>False</span><span style='color:#806030; '>;</span>
+  <span style='color:#400000; font-weight:bold; '>const</span> AWholeWords<span style='color:#806030; '>:</span> <span style='color:#800040; '>Boolean</span> <span style='color:#806030; '>=</span> <span style='color:#007d45; '>False</span><span style='color:#806030; '>;</span> <span style='color:#400000; font-weight:bold; '>const</span> AIncludeDir<span style='color:#806030; '>:</span> <span style='color:#800040; '>Boolean</span> <span style='color:#806030; '>=</span> <span style='color:#007d45; '>True</span><span style='color:#806030; '>;</span>
+  <span style='color:#400000; font-weight:bold; '>const</span> AIncludeFiles<span style='color:#806030; '>:</span> <span style='color:#800040; '>Boolean</span> <span style='color:#806030; '>=</span> <span style='color:#007d45; '>True</span><span style='color:#806030; '>;</span> <span style='color:#400000; font-weight:bold; '>const</span> ACaseSensitive<span style='color:#806030; '>:</span> <span style='color:#800040; '>Boolean</span> <span style='color:#806030; '>=</span> <span style='color:#007d45; '>False</span><span style='color:#806030; '>;</span>
+  <span style='color:#400000; font-weight:bold; '>const</span> ATimeoutMS<span style='color:#806030; '>:</span> <span style='color:#800040; '>Word</span> <span style='color:#806030; '>=</span> <span style='color:#c00000; '>1000</span><span style='color:#806030; '>)</span><span style='color:#806030; '>:</span> <span style='color:#800040; '>Integer</span><span style='color:#806030; '>;</span> <span style='color:#400000; font-weight:bold; '>stdcall</span><span style='color:#806030; '>;</span>
+
+ <span style='color:#400000; font-weight:bold; '>function</span> FindW<span style='color:#806030; '>(</span><span style='color:#400000; font-weight:bold; '>const</span> AStr<span style='color:#806030; '>:</span> <span style='color:#800040; '>PWideChar</span><span style='color:#806030; '>;</span> <span style='color:#400000; font-weight:bold; '>const</span> ACallback<span style='color:#806030; '>:</span> TResultCallBack<span style='color:#806030; '>;</span>
+  <span style='color:#400000; font-weight:bold; '>const</span> ADir<span style='color:#806030; '>,</span> AFilter<span style='color:#806030; '>:</span> <span style='color:#800040; '>PWideChar</span><span style='color:#806030; '>;</span> <span style='color:#400000; font-weight:bold; '>const</span> Afrom<span style='color:#806030; '>:</span> <span style='color:#800040; '>Integer</span> <span style='color:#806030; '>=</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>;</span>
+  <span style='color:#400000; font-weight:bold; '>const</span> ACount<span style='color:#806030; '>:</span> <span style='color:#800040; '>Integer</span> <span style='color:#806030; '>=</span> <span style='color:#c00000; '>100</span><span style='color:#806030; '>;</span> <span style='color:#400000; font-weight:bold; '>const</span> ASpaceOr<span style='color:#806030; '>:</span> <span style='color:#800040; '>Boolean</span> <span style='color:#806030; '>=</span> <span style='color:#007d45; '>False</span><span style='color:#806030; '>;</span>
+  <span style='color:#400000; font-weight:bold; '>const</span> AWholeWords<span style='color:#806030; '>:</span> <span style='color:#800040; '>Boolean</span> <span style='color:#806030; '>=</span> <span style='color:#007d45; '>False</span><span style='color:#806030; '>;</span> <span style='color:#400000; font-weight:bold; '>const</span> AIncludeDir<span style='color:#806030; '>:</span> <span style='color:#800040; '>Boolean</span> <span style='color:#806030; '>=</span> <span style='color:#007d45; '>True</span><span style='color:#806030; '>;</span>
+  <span style='color:#400000; font-weight:bold; '>const</span> AIncludeFiles<span style='color:#806030; '>:</span> <span style='color:#800040; '>Boolean</span> <span style='color:#806030; '>=</span> <span style='color:#007d45; '>True</span><span style='color:#806030; '>;</span> <span style='color:#400000; font-weight:bold; '>const</span> ACaseSensitive<span style='color:#806030; '>:</span> <span style='color:#800040; '>Boolean</span> <span style='color:#806030; '>=</span> <span style='color:#007d45; '>False</span><span style='color:#806030; '>;</span>
+  <span style='color:#400000; font-weight:bold; '>const</span> ATimeoutMS<span style='color:#806030; '>:</span> <span style='color:#800040; '>Word</span> <span style='color:#806030; '>=</span> <span style='color:#c00000; '>1000</span><span style='color:#806030; '>)</span><span style='color:#806030; '>:</span> <span style='color:#800040; '>Integer</span><span style='color:#806030; '>;</span> <span style='color:#400000; font-weight:bold; '>stdcall</span><span style='color:#806030; '>;</span>
+</pre>
+
+<p>搜索文件函数
+    参数 （搜索关键词，回调函数，制定目录（单个），后缀过滤（多个），开始结果位置，返回结果数量，
+        是否匹配任一关键词，匹配全词，搜索目录，搜索文件，区分大小写，超时时间）</p>
+
+<p>返回  Integer             错误代码 （0=无错，&lt;> 0 有错）</p>
+
+<table>
+    <tr>
+        <td>const AStr: PChar;  </td>
+        <td>搜索关键词</td>
+    </tr>
+    <tr>
+        <td>ACallback: TResultCallBack;</td>
+        <td>回调函数</td>
+    </tr>
+    <tr>
+        <td>const ADir: PChar;  </td>
+        <td>制定目录（单个）</td>
+    </tr>
+    <tr>
+        <td>const AFilter: PChar;   </td>
+        <td>后缀过滤（多个）</td>
+    </tr>
+    <tr>
+        <td>const ACount: Integer = 100;</td>
+        <td>返回结果数量</td>
+    </tr>
+    <tr>
+        <td>const Afrom: Integer = 0; </td>
+        <td>开始结果位置</td>
+    </tr>
+    <tr>
+        <td>const ASpaceOr: Boolean = False; </td>
+        <td>是否匹配任一关键词</td>
+    </tr>
+    <tr>
+        <td>const AWholeWords: Boolean = False;</td>
+        <td>匹配全词</td>
+    </tr>
+    <tr>
+        <td>const ACaseSensitive: Boolean = False; </td>
+        <td>区分大小写</td>
+    </tr>
+    <tr>
+        <td>const AIncludeDir: Boolean = True; </td>
+        <td>搜索目录</td>
+    </tr>
+    <tr>
+        <td>const AIncludeFiles: Boolean = True;</td>
+        <td>搜索文件</td>
+    </tr>
+    <tr>
+        <td>const ATimeoutMS: Word = 1000</td>
+        <td>超时时间</td>
+    </tr>
+</table>
+
+<h2>返回值</h2>
+
+<table>
+    <tr>
+        <td>ERR_OK</td>
+        <td>0</td>      
+        <td>无错</td>     
+    </tr>
+    <tr>
+        <td>ERR_TIMEOUT</td>
+        <td>1</td>      
+        <td>超时</td>     
+    </tr>
+    <tr>
+        <td>ERR_FINDER_NOT_RUN</td>
+        <td>2</td>      
+        <td>Finder没有运行</td>     
+    </tr>
+    <tr>
+        <td>ERR_COMM</td>
+        <td>3</td>      
+        <td>通信出错</td>       
+    </tr>
+    <tr>
+        <td>ERR_FINDER_VER</td>
+        <td>4</td>      
+        <td>Finder版本不支持</td>        
+    </tr>
+    <tr>
+        <td>ERR_FINDER_NOT_INSTALLED</td>
+        <td>9</td>      
+        <td>Finder没有安装</td>     
+    </tr>
+    <tr>
+        <td>ERR_FINDER_INITIALIZING</td>
+        <td>10</td>     
+        <td>Finder正在初始化当中</td>      
+    </tr>
+    <tr>
+        <td>ERR_UNKNOWN</td>
+        <td>99</td>     
+        <td>未知错误</td>       
+    </tr>
+
+</table>
+
+<h1>LaunchFinder <a id="launchfinder" ></a></h1>
+
+<pre><code>function LaunchFinder: Boolean; stdcall;
+</code></pre>
+
+<p>启动Finder</p>
+
+<h2>返回</h2>
+
+<p>是否启动成功</p>
+
+<h1>IsFinderRunning <a id="isfinderrunning" ></a></h1>
+
+<p>function IsFinderRunning: Boolean; stdcall;</p>
+
+<p>Finder是否已经在运行</p>
+
+<h2>返回</h2>
+
+<p>Finder是否已经在运行</p>
+
+<h1>CheckRequirement <a id="checkrequirement" ></a></h1>
+
+<p>function CheckRequirement: Integer; stdcall;      </p>
+
+<p>监测调用环境，比如Finder是否存在</p>
+
+<h2>返回</h2>
+
+<p>返回错误值，参见Find函数返回值。</p>
+
+<h2>C++ 例子：</h2>
+
+<pre style='color:#000000;background:#f1f0f0;'><span style='color:#c34e00; '>// cppdemo.cpp : Defines the entry point for the console application.</span>
+      <span style='color:#c34e00; '>//</span>
+      
+<span style='color:#004a43; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;#</span><span style='color:#004a43; '>include </span><span style='color:#800000; '>"</span><span style='color:#40015a; '>stdafx.h</span><span style='color:#800000; '>"</span>
+<span style='color:#004a43; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;#</span><span style='color:#004a43; '>include </span><span style='color:#800000; '>"</span><span style='color:#40015a; '>FinderSDK.h</span><span style='color:#800000; '>"</span>
+      
+      TFNfind             <span style='color:#800040; '>find</span>             <span style='color:#806030; '>=</span> <span style='color:#806030; '>(</span>TFNfind<span style='color:#806030; '>)</span><span style='color:#800000; font-weight:bold; '>GetProcAddress</span><span style='color:#806030; '>(</span><span style='color:#800000; font-weight:bold; '>LoadLibrary</span><span style='color:#806030; '>(</span>__T<span style='color:#806030; '>(</span><span style='color:#800000; '>"</span><span style='color:#e60000; '>finderlib.dll</span><span style='color:#800000; '>"</span><span style='color:#806030; '>)</span><span style='color:#806030; '>)</span><span style='color:#806030; '>,</span>FNFind<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+      TFNCheckRequirement CheckRequirement <span style='color:#806030; '>=</span> <span style='color:#806030; '>(</span>TFNCheckRequirement<span style='color:#806030; '>)</span><span style='color:#800000; font-weight:bold; '>GetProcAddress</span><span style='color:#806030; '>(</span><span style='color:#800000; font-weight:bold; '>LoadLibrary</span><span style='color:#806030; '>(</span>__T<span style='color:#806030; '>(</span><span style='color:#800000; '>"</span><span style='color:#e60000; '>finderlib.dll</span><span style='color:#800000; '>"</span><span style='color:#806030; '>)</span><span style='color:#806030; '>)</span><span style='color:#806030; '>,</span>FNCheckRequirement<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+      TFNLaunchFinder     LaunchFinder     <span style='color:#806030; '>=</span> <span style='color:#806030; '>(</span>TFNLaunchFinder<span style='color:#806030; '>)</span><span style='color:#800000; font-weight:bold; '>GetProcAddress</span><span style='color:#806030; '>(</span><span style='color:#800000; font-weight:bold; '>LoadLibrary</span><span style='color:#806030; '>(</span>__T<span style='color:#806030; '>(</span><span style='color:#800000; '>"</span><span style='color:#e60000; '>finderlib.dll</span><span style='color:#800000; '>"</span><span style='color:#806030; '>)</span><span style='color:#806030; '>)</span><span style='color:#806030; '>,</span>FNLaunchFinder<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+      
+      
+      <span style='color:#00dddd; '>std</span><span style='color:#806030; '>::</span><span style='color:#800040; '>string</span> WChar2Ansi<span style='color:#806030; '>(</span><span style='color:#800040; '>LPCWSTR</span> pwszSrc<span style='color:#806030; '>)</span>
+      <span style='color:#806030; '>{</span>
+          <span style='color:#400000; font-weight:bold; '>int</span> nLen <span style='color:#806030; '>=</span> <span style='color:#800000; font-weight:bold; '>WideCharToMultiByte</span><span style='color:#806030; '>(</span>CP_ACP<span style='color:#806030; '>,</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>,</span> pwszSrc<span style='color:#806030; '>,</span> <span style='color:#806030; '>-</span><span style='color:#c00000; '>1</span><span style='color:#806030; '>,</span> <span style='color:#007d45; '>NULL</span><span style='color:#806030; '>,</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>,</span> <span style='color:#007d45; '>NULL</span><span style='color:#806030; '>,</span> <span style='color:#007d45; '>NULL</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+          <span style='color:#400000; font-weight:bold; '>if</span> <span style='color:#806030; '>(</span>nLen<span style='color:#806030; '>&lt;</span><span style='color:#806030; '>=</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>)</span> <span style='color:#400000; font-weight:bold; '>return</span> <span style='color:#00dddd; '>std</span><span style='color:#806030; '>::</span><span style='color:#800040; '>string</span><span style='color:#806030; '>(</span><span style='color:#800000; '>"</span><span style='color:#800000; '>"</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+          <span style='color:#400000; font-weight:bold; '>char</span><span style='color:#806030; '>*</span> pszDst <span style='color:#806030; '>=</span> <span style='color:#400000; font-weight:bold; '>new</span> <span style='color:#400000; font-weight:bold; '>char</span><span style='color:#806030; '>[</span>nLen<span style='color:#806030; '>]</span><span style='color:#806030; '>;</span>
+          <span style='color:#400000; font-weight:bold; '>if</span> <span style='color:#806030; '>(</span><span style='color:#007d45; '>NULL</span> <span style='color:#806030; '>=</span><span style='color:#806030; '>=</span> pszDst<span style='color:#806030; '>)</span> <span style='color:#400000; font-weight:bold; '>return</span> <span style='color:#00dddd; '>std</span><span style='color:#806030; '>::</span><span style='color:#800040; '>string</span><span style='color:#806030; '>(</span><span style='color:#800000; '>"</span><span style='color:#800000; '>"</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+          <span style='color:#800000; font-weight:bold; '>WideCharToMultiByte</span><span style='color:#806030; '>(</span>CP_ACP<span style='color:#806030; '>,</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>,</span> pwszSrc<span style='color:#806030; '>,</span> <span style='color:#806030; '>-</span><span style='color:#c00000; '>1</span><span style='color:#806030; '>,</span> pszDst<span style='color:#806030; '>,</span> nLen<span style='color:#806030; '>,</span> <span style='color:#007d45; '>NULL</span><span style='color:#806030; '>,</span> <span style='color:#007d45; '>NULL</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+          pszDst<span style='color:#806030; '>[</span>nLen <span style='color:#806030; '>-</span><span style='color:#c00000; '>1</span><span style='color:#806030; '>]</span> <span style='color:#806030; '>=</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>;</span>
+          <span style='color:#00dddd; '>std</span><span style='color:#806030; '>::</span><span style='color:#800040; '>string</span> strTemp<span style='color:#806030; '>(</span>pszDst<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+          <span style='color:#400000; font-weight:bold; '>delete</span> <span style='color:#806030; '>[</span><span style='color:#806030; '>]</span> pszDst<span style='color:#806030; '>;</span>
+          <span style='color:#400000; font-weight:bold; '>return</span> strTemp<span style='color:#806030; '>;</span>
+      <span style='color:#806030; '>}</span>
+      
+      <span style='color:#400000; font-weight:bold; '>void</span> <span style='color:#400000; font-weight:bold; '>__stdcall</span> callback<span style='color:#806030; '>(</span><span style='color:#800040; '>TCHAR</span><span style='color:#806030; '>*</span><span style='color:#806030; '>*</span> buffer<span style='color:#806030; '>,</span><span style='color:#400000; font-weight:bold; '>int</span> bufferCount<span style='color:#806030; '>,</span> <span style='color:#400000; font-weight:bold; '>int</span> totalCount<span style='color:#806030; '>,</span><span style='color:#400000; font-weight:bold; '>int</span> ErrorCode<span style='color:#806030; '>)</span><span style='color:#806030; '>{</span>
+      
+          <span style='color:#400000; font-weight:bold; '>for</span><span style='color:#806030; '>(</span><span style='color:#400000; font-weight:bold; '>int</span> i<span style='color:#806030; '>=</span><span style='color:#c00000; '>0</span><span style='color:#806030; '>;</span> i<span style='color:#806030; '>&lt;</span>bufferCount<span style='color:#806030; '>;</span> i<span style='color:#806030; '>+</span><span style='color:#806030; '>+</span><span style='color:#806030; '>)</span><span style='color:#806030; '>{</span>
+             <span style='color:#c34e00; '>//wprintf(("%s\r\n"),*buffer);</span>
+             <span style='color:#c34e00; '>//_tprintf(__T("%s\r\n"),*buffer);</span>
+             <span style='color:#c34e00; '>//_tprintf(*buffer);</span>
+             
+<span style='color:#004a43; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;#</span><span style='color:#004a43; '>ifdef</span><span style='color:#004a43; '> UNICODE</span>
+              <span style='color:#800040; '>string</span> str <span style='color:#806030; '>=</span> WChar2Ansi<span style='color:#806030; '>(</span><span style='color:#806030; '>*</span>buffer<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+<span style='color:#004a43; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;#</span><span style='color:#004a43; '>else</span>
+              <span style='color:#800040; '>string</span> str<span style='color:#806030; '>(</span><span style='color:#806030; '>*</span>buffer<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+<span style='color:#004a43; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;#</span><span style='color:#004a43; '>endif</span>
+             <span style='color:#c34e00; '>//str = str.substr(0,10);</span>
+             <span style='color:#800040; '>cout</span> <span style='color:#806030; '>&lt;</span><span style='color:#806030; '>&lt;</span>str<span style='color:#806030; '>&lt;</span><span style='color:#806030; '>&lt;</span><span style='color:#00dddd; '>std</span><span style='color:#806030; '>::</span>endl<span style='color:#806030; '>;</span>
+             buffer<span style='color:#806030; '>+</span><span style='color:#806030; '>+</span><span style='color:#806030; '>;</span>
+          <span style='color:#806030; '>}</span>
+           <span style='color:#c34e00; '>//sprintf();</span>
+      
+      <span style='color:#806030; '>}</span>
+      <span style='color:#c34e00; '>/*</span>
+<span style='color:#c34e00; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;执行例子</span>
+<span style='color:#c34e00; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;cppdemo "*" "c:\windows;d:\;d:\;e:\" "c:\windows\system32" ".rar;.zip;.kz;.7zip;.7z"</span>
+<span style='color:#c34e00; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</span>
+<span style='color:#c34e00; '>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;*/</span>
+      <span style='color:#400000; font-weight:bold; '>int</span> _tmain<span style='color:#806030; '>(</span><span style='color:#400000; font-weight:bold; '>int</span> argc<span style='color:#806030; '>,</span> _TCHAR<span style='color:#806030; '>*</span> argv<span style='color:#806030; '>[</span><span style='color:#806030; '>]</span><span style='color:#806030; '>)</span>
+      <span style='color:#806030; '>{</span>
+          <span style='color:#400000; font-weight:bold; '>int</span>      req <span style='color:#806030; '>=</span> CheckRequirement<span style='color:#806030; '>(</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+          <span style='color:#400000; font-weight:bold; '>switch</span><span style='color:#806030; '>(</span>req<span style='color:#806030; '>)</span><span style='color:#806030; '>{</span>
+          <span style='color:#400000; font-weight:bold; '>case </span><span style='color:#007d45; '>ERR_OK</span><span style='color:#e34adc; '>:</span><span style='color:#806030; '>{</span>
+              <span style='color:#400000; font-weight:bold; '>if</span><span style='color:#806030; '>(</span><span style='color:#800040; '>find</span> <span style='color:#806030; '>!</span><span style='color:#806030; '>=</span> <span style='color:#007d45; '>NULL</span><span style='color:#806030; '>)</span><span style='color:#806030; '>{</span>
+                  <span style='color:#800040; '>find</span><span style='color:#806030; '>(</span><span style='color:#806030; '>(</span>argc <span style='color:#806030; '>></span> <span style='color:#c00000; '>1</span><span style='color:#806030; '>)</span><span style='color:#806030; '>?</span>argv<span style='color:#806030; '>[</span><span style='color:#c00000; '>1</span><span style='color:#806030; '>]</span><span style='color:#806030; '>:</span><span style='color:#806030; '>(</span>__T<span style='color:#806030; '>(</span><span style='color:#800000; '>"</span><span style='color:#800000; '>"</span><span style='color:#806030; '>)</span><span style='color:#806030; '>)</span><span style='color:#806030; '>,</span> 
+                      callback<span style='color:#806030; '>,</span> 
+                      <span style='color:#806030; '>(</span>argc <span style='color:#806030; '>></span> <span style='color:#c00000; '>2</span><span style='color:#806030; '>)</span><span style='color:#806030; '>?</span>argv<span style='color:#806030; '>[</span><span style='color:#c00000; '>2</span><span style='color:#806030; '>]</span><span style='color:#806030; '>:</span><span style='color:#806030; '>(</span>__T<span style='color:#806030; '>(</span><span style='color:#800000; '>"</span><span style='color:#800000; '>"</span><span style='color:#806030; '>)</span><span style='color:#806030; '>)</span><span style='color:#806030; '>,</span> 
+                      <span style='color:#806030; '>(</span>argc <span style='color:#806030; '>></span> <span style='color:#c00000; '>3</span><span style='color:#806030; '>)</span><span style='color:#806030; '>?</span>argv<span style='color:#806030; '>[</span><span style='color:#c00000; '>3</span><span style='color:#806030; '>]</span><span style='color:#806030; '>:</span><span style='color:#806030; '>(</span>__T<span style='color:#806030; '>(</span><span style='color:#800000; '>"</span><span style='color:#800000; '>"</span><span style='color:#806030; '>)</span><span style='color:#806030; '>)</span><span style='color:#806030; '>,</span> 
+                      <span style='color:#c34e00; '>//(argc > 4)?argv[4]:(__T("")), </span>
+                      __T<span style='color:#806030; '>(</span><span style='color:#800000; '>"</span><span style='color:#800000; '>"</span><span style='color:#806030; '>)</span><span style='color:#806030; '>,</span>
+                      <span style='color:#c00000; '>1000</span><span style='color:#806030; '>,</span>
+                      <span style='color:#c00000; '>0</span><span style='color:#806030; '>,</span>
+                      <span style='color:#400000; font-weight:bold; '>true</span><span style='color:#806030; '>,</span>
+                      <span style='color:#400000; font-weight:bold; '>false</span><span style='color:#806030; '>,</span>
+                      <span style='color:#400000; font-weight:bold; '>false</span><span style='color:#806030; '>,</span>
+                      <span style='color:#400000; font-weight:bold; '>false</span><span style='color:#806030; '>,</span>
+                      <span style='color:#400000; font-weight:bold; '>true</span><span style='color:#806030; '>,</span>
+                      <span style='color:#c00000; '>1000</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span> 
+              <span style='color:#806030; '>}</span>                   
+                      <span style='color:#806030; '>}</span>
+                      <span style='color:#400000; font-weight:bold; '>break</span><span style='color:#806030; '>;</span>
+          <span style='color:#400000; font-weight:bold; '>case </span><span style='color:#007d45; '>ERR_FINDER_NOT_RUN</span><span style='color:#e34adc; '>:</span>
+              <span style='color:#c34e00; '>//LaunchFinder();</span>
+              <span style='color:#400000; font-weight:bold; '>break</span><span style='color:#806030; '>;</span>
+          <span style='color:#806030; '>}</span>
+          
+          <span style='color:#400000; font-weight:bold; '>return</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>;</span>
+      <span style='color:#806030; '>}</span>
+</pre>
+
+<h2>Delphi 例子</h2>
+
+<p>接受命令行参数为搜索条件，在C盘搜索</p>
+
+<pre style='color:#000000;background:#f1f0f0;'><span style='color:#400000; font-weight:bold; '>procedure</span> FindCallback<span style='color:#806030; '>(</span>Buffer<span style='color:#806030; '>:</span> PPChar<span style='color:#806030; '>;</span> BufferCount<span style='color:#806030; '>:</span> <span style='color:#800040; '>Integer</span><span style='color:#806030; '>;</span> TotalCount<span style='color:#806030; '>:</span> <span style='color:#800040; '>Integer</span><span style='color:#806030; '>;</span>
+        ErrorCode<span style='color:#806030; '>:</span> <span style='color:#800040; '>Integer</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span> <span style='color:#400000; font-weight:bold; '>stdcall</span><span style='color:#806030; '>;</span>
+    <span style='color:#400000; font-weight:bold; '>var</span>
+      i <span style='color:#806030; '>:</span> <span style='color:#800040; '>Integer</span><span style='color:#806030; '>;</span>
+    <span style='color:#400000; font-weight:bold; '>begin</span>
+      OutputDebugString<span style='color:#806030; '>(</span><span style='color:#800040; '>PChar</span><span style='color:#806030; '>(</span>Format<span style='color:#806030; '>(</span><span style='color:#e60000; '>'Buffer=%x, Count = %d'</span><span style='color:#806030; '>,</span><span style='color:#806030; '>[</span><span style='color:#800040; '>Integer</span><span style='color:#806030; '>(</span>Buffer<span style='color:#806030; '>)</span><span style='color:#806030; '>,</span> BufferCount<span style='color:#806030; '>]</span><span style='color:#806030; '>)</span><span style='color:#806030; '>)</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+      Writeln<span style='color:#806030; '>(</span><span style='color:#e60000; '>'Buffer Count'</span><span style='color:#806030; '>,</span> BufferCount<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+      Writeln<span style='color:#806030; '>(</span><span style='color:#e60000; '>'Result TotalCount'</span><span style='color:#806030; '>,</span> TotalCount<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+      Writeln<span style='color:#806030; '>(</span><span style='color:#e60000; '>'Error Code'</span><span style='color:#806030; '>,</span> ErrorCode<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+      Writeln<span style='color:#806030; '>(</span><span style='color:#e60000; '>'Result'</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+      <span style='color:#400000; font-weight:bold; '>for</span> i <span style='color:#806030; '>:</span><span style='color:#806030; '>=</span><span style='color:#c00000; '>0</span> <span style='color:#400000; font-weight:bold; '>to</span>  BufferCount <span style='color:#806030; '>-</span> <span style='color:#c00000; '>1</span> <span style='color:#400000; font-weight:bold; '>do</span>
+      <span style='color:#400000; font-weight:bold; '>begin</span>
+        Writeln<span style='color:#806030; '>(</span>StrPas<span style='color:#806030; '>(</span><span style='color:#800040; '>PChar</span><span style='color:#806030; '>(</span>Buffer<span style='color:#806030; '>^</span><span style='color:#806030; '>)</span><span style='color:#806030; '>)</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+        Inc<span style='color:#806030; '>(</span>Buffer<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+      <span style='color:#400000; font-weight:bold; '>end</span><span style='color:#806030; '>;</span>
+    <span style='color:#400000; font-weight:bold; '>end</span><span style='color:#806030; '>;</span>
+    <span style='color:#400000; font-weight:bold; '>var</span>
+      r <span style='color:#806030; '>:</span> <span style='color:#800040; '>string</span><span style='color:#806030; '>;</span>
+    <span style='color:#400000; font-weight:bold; '>begin</span>
+      <span style='color:#400000; font-weight:bold; '>try</span>
+        <span style='color:#c34e00; '>{ </span><span style='color:#ffffff; background:#808000; '>TODO -oUser -cConsole Main : Insert code here </span><span style='color:#c34e00; '>}</span>
+
+        Find<span style='color:#806030; '>(</span>
+          ParamStr<span style='color:#806030; '>(</span><span style='color:#c00000; '>1</span><span style='color:#806030; '>)</span><span style='color:#806030; '>,</span>
+          <span style='color:#806030; '>@</span>FindCallback<span style='color:#806030; '>,</span>
+          <span style='color:#e60000; '>'c:\'</span><span style='color:#806030; '>,</span>
+          <span style='color:#e60000; '>''</span><span style='color:#806030; '>,</span>
+          <span style='color:#c00000; '>0</span><span style='color:#806030; '>,</span> <span style='color:#c00000; '>20</span>
+          <span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+        Readln<span style='color:#806030; '>(</span>r<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+      <span style='color:#400000; font-weight:bold; '>except</span>
+        <span style='color:#400000; font-weight:bold; '>on</span> E<span style='color:#806030; '>:</span>Exception <span style='color:#400000; font-weight:bold; '>do</span>
+          Writeln<span style='color:#806030; '>(</span>E<span style='color:#806030; '>.</span>Classname<span style='color:#806030; '>,</span> <span style='color:#e60000; '>': '</span><span style='color:#806030; '>,</span> E<span style='color:#806030; '>.</span>Message<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+      <span style='color:#400000; font-weight:bold; '>end</span><span style='color:#806030; '>;</span>
+    <span style='color:#400000; font-weight:bold; '>end</span><span style='color:#806030; '>.</span>
+</pre>
+<h2>C# 例子</h2>
+<pre style='color:#000000;background:#f1f0f0;'><span style='color:#400000; font-weight:bold; '>using</span> System<span style='color:#806030; '>;</span>
+      <span style='color:#400000; font-weight:bold; '>using</span> System<span style='color:#806030; '>.</span>Collections<span style='color:#806030; '>.</span>Generic<span style='color:#806030; '>;</span>
+      <span style='color:#400000; font-weight:bold; '>using</span> System<span style='color:#806030; '>.</span>Linq<span style='color:#806030; '>;</span>
+      <span style='color:#400000; font-weight:bold; '>using</span> System<span style='color:#806030; '>.</span>Text<span style='color:#806030; '>;</span>
+      <span style='color:#400000; font-weight:bold; '>using</span> System<span style='color:#806030; '>.</span>Runtime<span style='color:#806030; '>.</span>InteropServices<span style='color:#806030; '>;</span> 
+      
+      <span style='color:#400000; font-weight:bold; '>namespace</span> CSharpDemo
+      <span style='color:#806030; '>{</span>
+          <span style='color:#400000; font-weight:bold; '>class</span> Program
+          <span style='color:#806030; '>{</span>
+      
+              <span style='color:#400000; font-weight:bold; '>public</span> <span style='color:#400000; font-weight:bold; '>delegate</span> <span style='color:#400000; font-weight:bold; '>void</span> TFNFindCallback <span style='color:#806030; '>(</span>IntPtr buffer<span style='color:#806030; '>,</span><span style='color:#400000; font-weight:bold; '>int</span> bufferCount<span style='color:#806030; '>,</span> <span style='color:#400000; font-weight:bold; '>int</span> totalCount<span style='color:#806030; '>,</span><span style='color:#400000; font-weight:bold; '>int</span> ErrorCode<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+              <span style='color:#806030; '>[</span>DllImport<span style='color:#806030; '>(</span><span style='color:#800000; '>"</span><span style='color:#e60000; '>finderlib64.dll</span><span style='color:#800000; '>"</span><span style='color:#806030; '>,</span> EntryPoint <span style='color:#806030; '>=</span> <span style='color:#800000; '>"</span><span style='color:#e60000; '>FindW</span><span style='color:#800000; '>"</span><span style='color:#806030; '>,</span> CharSet <span style='color:#806030; '>=</span> CharSet<span style='color:#806030; '>.</span>Unicode<span style='color:#806030; '>)</span><span style='color:#806030; '>]</span>
+              <span style='color:#400000; font-weight:bold; '>public</span> <span style='color:#400000; font-weight:bold; '>static</span> <span style='color:#400000; font-weight:bold; '>extern</span>   <span style='color:#400000; font-weight:bold; '>int</span> Find64<span style='color:#806030; '>(</span>String AStr<span style='color:#806030; '>,</span>
+                                          TFNFindCallback ACallback<span style='color:#806030; '>,</span>
+                                          String ADir<span style='color:#806030; '>,</span> 
+                                          String AExcludeDir<span style='color:#806030; '>,</span>
+                                          String AFilter<span style='color:#806030; '>,</span>
+                                          <span style='color:#400000; font-weight:bold; '>int</span> ACount<span style='color:#806030; '>,</span>
+                                          <span style='color:#400000; font-weight:bold; '>int</span> Afrom<span style='color:#806030; '>,</span>
+                                          <span style='color:#400000; font-weight:bold; '>bool</span> ASpaceOr<span style='color:#806030; '>,</span>
+                                          <span style='color:#400000; font-weight:bold; '>bool</span> AWholeWords<span style='color:#806030; '>,</span>
+                                          <span style='color:#400000; font-weight:bold; '>bool</span> ACaseSensitive<span style='color:#806030; '>,</span>
+                                          <span style='color:#400000; font-weight:bold; '>bool</span> AIncludeDir<span style='color:#806030; '>,</span>
+                                          <span style='color:#400000; font-weight:bold; '>bool</span> AIncludeFiles<span style='color:#806030; '>,</span>
+                                          UInt16 ATimeoutMS<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+              <span style='color:#806030; '>[</span>DllImport<span style='color:#806030; '>(</span><span style='color:#800000; '>"</span><span style='color:#e60000; '>finderlib.dll</span><span style='color:#800000; '>"</span><span style='color:#806030; '>,</span> EntryPoint <span style='color:#806030; '>=</span> <span style='color:#800000; '>"</span><span style='color:#e60000; '>FindW</span><span style='color:#800000; '>"</span><span style='color:#806030; '>,</span> CharSet <span style='color:#806030; '>=</span> CharSet<span style='color:#806030; '>.</span>Unicode<span style='color:#806030; '>)</span><span style='color:#806030; '>]</span>
+              <span style='color:#400000; font-weight:bold; '>public</span> <span style='color:#400000; font-weight:bold; '>static</span> <span style='color:#400000; font-weight:bold; '>extern</span> <span style='color:#400000; font-weight:bold; '>int</span> Find<span style='color:#806030; '>(</span>String AStr<span style='color:#806030; '>,</span>
+                                                  TFNFindCallback ACallback<span style='color:#806030; '>,</span>
+                                                  String ADir<span style='color:#806030; '>,</span>
+                                                  String AExcludeDir<span style='color:#806030; '>,</span>
+                                                  String AFilter<span style='color:#806030; '>,</span>
+                                                  <span style='color:#400000; font-weight:bold; '>int</span> ACount<span style='color:#806030; '>,</span>
+                                                  <span style='color:#400000; font-weight:bold; '>int</span> Afrom<span style='color:#806030; '>,</span>
+                                                  <span style='color:#400000; font-weight:bold; '>bool</span> ASpaceOr<span style='color:#806030; '>,</span>
+                                                  <span style='color:#400000; font-weight:bold; '>bool</span> AWholeWords<span style='color:#806030; '>,</span>
+                                                  <span style='color:#400000; font-weight:bold; '>bool</span> ACaseSensitive<span style='color:#806030; '>,</span>
+                                                  <span style='color:#400000; font-weight:bold; '>bool</span> AIncludeDir<span style='color:#806030; '>,</span>
+                                                  <span style='color:#400000; font-weight:bold; '>bool</span> AIncludeFiles<span style='color:#806030; '>,</span>
+                                                  UInt16 ATimeoutMS<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+              
+              <span style='color:#400000; font-weight:bold; '>static</span> <span style='color:#400000; font-weight:bold; '>void</span> Main<span style='color:#806030; '>(</span><span style='color:#400000; font-weight:bold; '>string</span><span style='color:#806030; '>[</span><span style='color:#806030; '>]</span> args<span style='color:#806030; '>)</span>
+              <span style='color:#806030; '>{</span>
+      
+                  <span style='color:#400000; font-weight:bold; '>if</span> <span style='color:#806030; '>(</span>IntPtr<span style='color:#806030; '>.</span>Size <span style='color:#806030; '>=</span><span style='color:#806030; '>=</span> <span style='color:#c00000; '>4</span><span style='color:#806030; '>)</span><span style='color:#c34e00; '>//32位系统</span>
+                    Find<span style='color:#806030; '>(</span><span style='color:#800000; '>"</span><span style='color:#e60000; '>*.exe</span><span style='color:#800000; '>"</span><span style='color:#806030; '>,</span> FindCallback<span style='color:#806030; '>,</span> <span style='color:#800000; '>"</span><span style='color:#800000; '>"</span><span style='color:#806030; '>,</span> <span style='color:#800000; '>"</span><span style='color:#800000; '>"</span><span style='color:#806030; '>,</span> <span style='color:#800000; '>"</span><span style='color:#800000; '>"</span><span style='color:#806030; '>,</span> <span style='color:#c00000; '>1000</span><span style='color:#806030; '>,</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>,</span> <span style='color:#400000; font-weight:bold; '>true</span><span style='color:#806030; '>,</span> <span style='color:#400000; font-weight:bold; '>false</span><span style='color:#806030; '>,</span> <span style='color:#400000; font-weight:bold; '>false</span><span style='color:#806030; '>,</span> <span style='color:#400000; font-weight:bold; '>false</span><span style='color:#806030; '>,</span> <span style='color:#400000; font-weight:bold; '>true</span><span style='color:#806030; '>,</span> <span style='color:#c00000; '>1000</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+                  <span style='color:#400000; font-weight:bold; '>else</span> <span style='color:#400000; font-weight:bold; '>if</span><span style='color:#806030; '>(</span>IntPtr<span style='color:#806030; '>.</span>Size <span style='color:#806030; '>=</span><span style='color:#806030; '>=</span> <span style='color:#c00000; '>8</span><span style='color:#806030; '>)</span><span style='color:#c34e00; '>//64位系统</span>
+                    Find64<span style='color:#806030; '>(</span><span style='color:#800000; '>"</span><span style='color:#e60000; '>*.exe</span><span style='color:#800000; '>"</span><span style='color:#806030; '>,</span> FindCallback<span style='color:#806030; '>,</span> <span style='color:#800000; '>"</span><span style='color:#800000; '>"</span><span style='color:#806030; '>,</span> <span style='color:#800000; '>"</span><span style='color:#800000; '>"</span><span style='color:#806030; '>,</span> <span style='color:#800000; '>"</span><span style='color:#800000; '>"</span><span style='color:#806030; '>,</span> <span style='color:#c00000; '>1000</span><span style='color:#806030; '>,</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>,</span> <span style='color:#400000; font-weight:bold; '>true</span><span style='color:#806030; '>,</span> <span style='color:#400000; font-weight:bold; '>false</span><span style='color:#806030; '>,</span> <span style='color:#400000; font-weight:bold; '>false</span><span style='color:#806030; '>,</span> <span style='color:#400000; font-weight:bold; '>false</span><span style='color:#806030; '>,</span> <span style='color:#400000; font-weight:bold; '>true</span><span style='color:#806030; '>,</span> <span style='color:#c00000; '>1000</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+              <span style='color:#806030; '>}</span>
+      
+      
+              <span style='color:#400000; font-weight:bold; '>public</span> <span style='color:#400000; font-weight:bold; '>static</span> String<span style='color:#806030; '>[</span><span style='color:#806030; '>]</span> getStringArrayFromPPChar<span style='color:#806030; '>(</span>IntPtr buffer<span style='color:#806030; '>,</span><span style='color:#400000; font-weight:bold; '>int</span> bufferCount<span style='color:#806030; '>,</span> Encoding  e<span style='color:#806030; '>)</span>
+              <span style='color:#806030; '>{</span>
+                  String<span style='color:#806030; '>[</span><span style='color:#806030; '>]</span> ret <span style='color:#806030; '>=</span> <span style='color:#400000; font-weight:bold; '>new</span> String<span style='color:#806030; '>[</span>bufferCount<span style='color:#806030; '>]</span><span style='color:#806030; '>;</span>
+                  <span style='color:#400000; font-weight:bold; '>for</span> <span style='color:#806030; '>(</span><span style='color:#400000; font-weight:bold; '>int</span> i <span style='color:#806030; '>=</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>;</span> i <span style='color:#806030; '>&lt;</span> bufferCount<span style='color:#806030; '>;</span> i<span style='color:#806030; '>+</span><span style='color:#806030; '>+</span><span style='color:#806030; '>)</span>
+                  <span style='color:#806030; '>{</span>
+                      IntPtr cur <span style='color:#806030; '>=</span> Marshal<span style='color:#806030; '>.</span>ReadIntPtr<span style='color:#806030; '>(</span>buffer<span style='color:#806030; '>,</span> IntPtr<span style='color:#806030; '>.</span>Size <span style='color:#806030; '>*</span> i<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+                      List<span style='color:#806030; '>&lt;</span><span style='color:#400000; font-weight:bold; '>byte</span><span style='color:#806030; '>></span> b <span style='color:#806030; '>=</span> <span style='color:#400000; font-weight:bold; '>new</span> List<span style='color:#806030; '>&lt;</span><span style='color:#400000; font-weight:bold; '>byte</span><span style='color:#806030; '>></span><span style='color:#806030; '>(</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+                      <span style='color:#400000; font-weight:bold; '>byte</span> cb <span style='color:#806030; '>=</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>;</span>
+                      <span style='color:#400000; font-weight:bold; '>byte</span> lb <span style='color:#806030; '>=</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>;</span>
+                      <span style='color:#400000; font-weight:bold; '>int</span> pos <span style='color:#806030; '>=</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>;</span>
+                      <span style='color:#400000; font-weight:bold; '>while</span> <span style='color:#806030; '>(</span><span style='color:#400000; font-weight:bold; '>true</span><span style='color:#806030; '>)</span>
+                      <span style='color:#806030; '>{</span>
+                          cb <span style='color:#806030; '>=</span> Marshal<span style='color:#806030; '>.</span>ReadByte<span style='color:#806030; '>(</span>cur<span style='color:#806030; '>,</span> pos<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+                          pos<span style='color:#806030; '>+</span><span style='color:#806030; '>+</span><span style='color:#806030; '>;</span>
+                          b<span style='color:#806030; '>.</span>Add<span style='color:#806030; '>(</span>cb<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+      
+                          <span style='color:#400000; font-weight:bold; '>if</span> <span style='color:#806030; '>(</span>e<span style='color:#806030; '>.</span>IsSingleByte<span style='color:#806030; '>)</span>
+                          <span style='color:#806030; '>{</span>
+                              <span style='color:#400000; font-weight:bold; '>if</span><span style='color:#806030; '>(</span>cb <span style='color:#806030; '>=</span><span style='color:#806030; '>=</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>)</span>
+                                  <span style='color:#400000; font-weight:bold; '>break</span><span style='color:#806030; '>;</span>
+                          <span style='color:#806030; '>}</span>
+                          <span style='color:#400000; font-weight:bold; '>else</span>
+                          <span style='color:#400000; font-weight:bold; '>if</span> <span style='color:#806030; '>(</span><span style='color:#806030; '>(</span>b<span style='color:#806030; '>.</span>Count <span style='color:#806030; '>%</span> <span style='color:#c00000; '>2</span><span style='color:#806030; '>)</span> <span style='color:#806030; '>=</span><span style='color:#806030; '>=</span> <span style='color:#c00000; '>0</span> &amp;&amp; cb <span style='color:#806030; '>=</span><span style='color:#806030; '>=</span> <span style='color:#c00000; '>0</span> &amp;&amp; lb <span style='color:#806030; '>=</span><span style='color:#806030; '>=</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>)</span>
+                          <span style='color:#806030; '>{</span>
+                              <span style='color:#400000; font-weight:bold; '>break</span><span style='color:#806030; '>;</span>
+                          <span style='color:#806030; '>}</span>
+                          lb <span style='color:#806030; '>=</span> cb<span style='color:#806030; '>;</span>
+                      <span style='color:#806030; '>}</span>
+                      ret<span style='color:#806030; '>[</span>i<span style='color:#806030; '>]</span> <span style='color:#806030; '>=</span> e<span style='color:#806030; '>.</span>GetString<span style='color:#806030; '>(</span>b<span style='color:#806030; '>.</span>ToArray<span style='color:#806030; '>(</span><span style='color:#806030; '>)</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+                  <span style='color:#806030; '>}</span>
+                  <span style='color:#400000; font-weight:bold; '>return</span> ret<span style='color:#806030; '>;</span>
+              <span style='color:#806030; '>}</span>
+      
+              <span style='color:#400000; font-weight:bold; '>public</span> <span style='color:#400000; font-weight:bold; '>static</span> <span style='color:#400000; font-weight:bold; '>void</span> FindCallback<span style='color:#806030; '>(</span>IntPtr buffer<span style='color:#806030; '>,</span> <span style='color:#400000; font-weight:bold; '>int</span> bufferCount<span style='color:#806030; '>,</span> <span style='color:#400000; font-weight:bold; '>int</span> totalCount<span style='color:#806030; '>,</span> <span style='color:#400000; font-weight:bold; '>int</span> ErrorCode<span style='color:#806030; '>)</span>
+              <span style='color:#806030; '>{</span>
+                  Encoding e <span style='color:#806030; '>=</span> Encoding<span style='color:#806030; '>.</span>Unicode<span style='color:#806030; '>;</span>
+                  String<span style='color:#806030; '>[</span><span style='color:#806030; '>]</span> filenames <span style='color:#806030; '>=</span> getStringArrayFromPPChar<span style='color:#806030; '>(</span>buffer<span style='color:#806030; '>,</span> bufferCount<span style='color:#806030; '>,</span> e<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+                  <span style='color:#400000; font-weight:bold; '>for</span><span style='color:#806030; '>(</span><span style='color:#400000; font-weight:bold; '>int</span> i<span style='color:#806030; '>=</span><span style='color:#c00000; '>0</span><span style='color:#806030; '>;</span> i<span style='color:#806030; '>&lt;</span> filenames<span style='color:#806030; '>.</span>Length<span style='color:#806030; '>;</span> i<span style='color:#806030; '>+</span><span style='color:#806030; '>+</span><span style='color:#806030; '>)</span><span style='color:#806030; '>{</span>
+                      Console<span style='color:#806030; '>.</span>WriteLine<span style='color:#806030; '>(</span>filenames<span style='color:#806030; '>[</span>i<span style='color:#806030; '>]</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+                  <span style='color:#806030; '>}</span>
+              <span style='color:#806030; '>}</span>
+          <span style='color:#806030; '>}</span>
+      
+      
+      <span style='color:#806030; '>}</span>
+</pre>
+
+</body>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
+</html>
